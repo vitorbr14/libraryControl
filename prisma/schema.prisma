@@ -14,5 +14,20 @@ datasource db {
 model Author {
   id    Int     @id @default(autoincrement())
   name  String?
-  
+  books BooksandAuthors[]
+}
+
+model Books {
+  id String @id @default(cuid())
+  bookName String?
+  authors BooksandAuthors[]
+}
+
+model BooksandAuthors {
+author Author @relation(fields: [authorid], references: [id])
+authorid Int
+books Books @relation(fields: [booksid], references: [id])
+booksid String
+assignedAt DateTime @default(now())
+@@id([authorid, booksid])
 }
