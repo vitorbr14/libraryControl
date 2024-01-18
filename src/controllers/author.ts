@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 type autor_id = {
   id: number;
 };
+
 export const newauthor = async (req: Request, res: Response) => {
   const { authorname } = req.body;
 
@@ -20,6 +21,7 @@ export const newauthor = async (req: Request, res: Response) => {
   res.json(newAuthor);
 };
 
+//get single author
 export const singleAuthor = async (req: Request, res: Response) => {
   const { id } = req.params;
   if (!id) {
@@ -29,6 +31,9 @@ export const singleAuthor = async (req: Request, res: Response) => {
   const autor = await prisma.author.findUnique({
     where: {
       id: Number(id),
+    },
+    include: {
+      books: true,
     },
   });
 

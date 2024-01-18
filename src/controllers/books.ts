@@ -28,6 +28,9 @@ export const newbook = async (req: Request, res: Response) => {
       data: {
         bookName: bookName,
       },
+      include: {
+        authors: true,
+      },
     });
 
     res.json(newBook);
